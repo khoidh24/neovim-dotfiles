@@ -1,4 +1,4 @@
-![nvim screenshot](./images/nvim.png)
+![nvim screenshot](./neovim.png)
 
 # Puffcatz's dotfiles
 
