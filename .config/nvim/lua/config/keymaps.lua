@@ -1,7 +1,3 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
-
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
   if opts then
@@ -14,9 +10,9 @@ vim.g.mapleader = " "
 local keymap = vim.keymap
 
 -- Save file and quit
-keymap.set("n", "<Leader>w", ":update<Return>", opts)
-keymap.set("n", "<Leader>q", ":quit<Return>", opts)
-keymap.set("n", "<Leader>Q", ":qa<Return>", opts)
+keymap.set("n", "<Leader>w", ":w<Return>", opts)
+-- keymap.set("n", "<Leader>q", ":q<Return>", opts) -- Error in Neovim version 0.10.0
+-- keymap.set("n", "<Leader>Q", ":qa<Return>", opts) -- Error in Neovim version 0.10.0
 
 -- Tabs
 keymap.set("n", "te", ":tabedit")
@@ -48,4 +44,3 @@ map("", "<up>", "<nop>")
 map("", "<down>", "<nop>")
 map("", "<left>", "<nop>")
 map("", "<right>", "<nop>")
-
