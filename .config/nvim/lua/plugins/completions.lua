@@ -25,8 +25,12 @@ return {
       local luasnip = require("luasnip")
       local lspkind = require("lspkind")
       luasnip.filetype_extend("javascriptreact", { "html" })
+      luasnip.filetype_extend("typescriptreact", { "html" })
       require("luasnip.loaders.from_vscode").lazy_load()
       cmp.setup({
+        completion = {
+          completeopt = "menu,menuone,noinsert",
+        },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
@@ -57,12 +61,11 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "buffer" },
         }),
         formatting = {
           fields = { "kind", "abbr" },
           format = function(entry, vim_item)
-            require("lspkind").init({
+            lspkind.init({
               symbol_map = {
                 Text = "  ",
                 Method = "  ",
@@ -98,8 +101,12 @@ return {
               show_labelDetails = true,
               before = require("tailwind-tools.cmp").lspkind_format,
             })(entry, vim_item)
+            local source = entry.source.name
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. (strings[1] or "") .. " "
+            if source == "luasnip" or source == "nvim_lsp" then
+              vim_item.dup = 0
+            end
             return kind
           end,
         },
